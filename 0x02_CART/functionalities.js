@@ -42,8 +42,10 @@ function remove(param, input) {
  */
 function show_items(param, input) {
   let output = "";
+  let index = 0;
   for (const items of param.cartArray) {
-    output += `${items} , `;
+    index++;
+    output += `${items} ${index === param.cartArray.length ? "" : ","} `;
   }
   console.log(output);
   input.prompt();
