@@ -41,9 +41,11 @@ function remove(param, input) {
  * @param {stdin} input
  */
 function show_items(param, input) {
+  let output = "";
   for (const items of param.cartArray) {
-    console.log(items);
+    output += `${items} , `;
   }
+  console.log(output);
   input.prompt();
 }
 

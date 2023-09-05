@@ -5,7 +5,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "main": "node 0x02_cart.js",
+    "start": "node 0x02_cart.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
