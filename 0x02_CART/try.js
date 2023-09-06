@@ -1,5 +1,5 @@
 const readline = require("node:readline");
-// const { add, remove, show_items, length } = require("./functionalities");
+const { add, remove, show_items, length } = require("./functionalities");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -9,60 +9,54 @@ const rl = readline.createInterface({
 });
 
 const cart = {
-  cartArray: [1, 4, 6, 7, 4],
+  cartArray: [],
   addToCart(param) {
     return this.cartArray.push(param);
   },
   removeFromCart(param) {
-    let data = cart.cartArray.filter((arr) => arr === param);
-    return data;
+    let elem_to_remove = cart.cartArray.find((elem) => elem === param);
+    let index_of_elem = cart.cartArray.indexOf(elem_to_remove);
+    if (index_of_elem !== -1) {
+      cart.cartArray.splice(index_of_elem, 1);
+    }
   },
   stanby() {
-    return new Promise((resolve, reject) => {
-      rl.prompt("value : ", (answer) => {
-        resolve(answer);
-        rl.prompt();
-      });
+    rl.on("line", (line) => {
+      let input = line.trim();
 
-      main();
+      switch (input) {
+        case "add":
+          add(cart, rl);
+          break;
+        case "remove":
+          remove(cart, rl);
+          break;
+        case "show-items":
+          show_items(cart, rl);
+          break;
+        case "length":
+          length(cart, rl);
+          break;
+        case "exit":
+          rl.close();
+          break;
+        default:
+          console.log(`Invalid Command : ${input}`);
+          rl.prompt();
+          break;
+      }
     });
   },
 };
-
-function add() {
-  rl.setPrompt("value");
-  rl.question("value : ", (line) => {
-    console.log(`input was ${line}`);
-    return;
-  });
-}
 
 /**
  * ---------Main-----------
  */
 
 rl.prompt();
-
-function main() {
-  rl.on("line", (line) => {
-    let input = line.trim();
-
-    switch (input) {
-      case "add":
-        add();
-        break;
-      case "exit":
-        rl.close();
-        break;
-      default:
-        console.log(`Invalid Command : ${input}`);
-        break;
-    }
-  });
-}
 rl.on("close", () => {
   console.log("Bye!");
   process.exit(0);
 });
 
-main();
+cart.stanby();
