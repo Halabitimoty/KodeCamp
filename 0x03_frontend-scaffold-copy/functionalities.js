@@ -38,7 +38,7 @@ function create_file(fileName, fileContent) {
   return new Promise((resolve, reject) => {
     fs.access(fileName, (err) => {
       if (err) {
-        console.error("File Does Not Exist.\n");
+        console.error(`File ${fileName}Does Not Exist.\n`);
         fs.writeFile(fileName, fileContent, (err) => {
           if (err) {
             reject(`Can't create File.\n`);
