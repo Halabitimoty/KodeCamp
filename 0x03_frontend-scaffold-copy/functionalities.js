@@ -11,7 +11,7 @@ function create_folder(path) {
   return new Promise((resolve, reject) => {
     fs.access(path, (err) => {
       if (err) {
-        console.error("Folder Does Not Exist.\n");
+        console.error(`Folder ${path} Does Not Exist.\n`);
         fs.mkdir(path, (error) => {
           if (error) {
             reject(`Can't create Folder.\n`);
