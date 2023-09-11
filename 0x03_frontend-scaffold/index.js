@@ -17,20 +17,10 @@ const main_folder = fs
 main_folder
   .then(() => {
     create_file(`${folder}/index.html`, html);
-  })
-  .then(() => {
     create_folder(`${folder}/css`);
-  })
-  .then(() => {
     create_folder(`${folder}/js`);
-  })
-  .then(() => {
     create_folder(`${folder}/images`);
-  })
-  .then(() => {
     create_file(`${folder}/css/style.css`, css);
-  })
-  .then(() => {
     create_file(`${folder}/js/script.js`, js);
   })
   .catch(() => {
