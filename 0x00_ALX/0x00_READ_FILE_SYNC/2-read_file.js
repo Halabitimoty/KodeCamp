@@ -57,4 +57,5 @@ function countStudents(path) {
   }
 }
 
-countStudents("./database.csv");
+//countStudents("./database.csv");
+module.exports = countStudents;
