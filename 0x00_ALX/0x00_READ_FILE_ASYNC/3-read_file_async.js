@@ -21,40 +21,52 @@ function countStudents(path) {
   let field = {};
   let names = {};
 
-  try {
-    const data = fs.readFileSync(path, "utf-8");
-    const input = filter_data(data.toString().split("\n"));
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, (err, data) => {
+      if (err) {
+        reject("Cannot load the database");
+      } else {
+        const input = filter_data(data.toString().split("\n"));
 
-    content = input.map((data) => data.split(","));
-    set = new Set(content.map((data) => data[3]));
-    NUMBER_OF_STUDENTS = content.length - 1;
+        content = input.map((data) => data.split(","));
+        set = new Set(content.map((data) => data[3]));
+        NUMBER_OF_STUDENTS = content.length - 1;
 
-    for (const value of set) {
-      field[value] = 0;
-      names[value] = [];
-    }
-    content.map((data) => {
-      for (const value in field) {
-        if (data[3] === value) {
-          field[value]++;
-          names[value].push(data[0]);
+        for (const value of set) {
+          field[value] = 0;
+          names[value] = [];
         }
+        content.map((data) => {
+          for (const value in field) {
+            if (data[3] === value) {
+              field[value]++;
+              names[value].push(data[0]);
+            }
+          }
+        });
+
+        console.log(`Number of students: ${NUMBER_OF_STUDENTS}`);
+        for (const value in field) {
+          if (value !== "field") {
+            console.log(
+              `Number of students in ${value}: ${field[value]}. List: ${names[
+                value
+              ].join(", ")}`
+            );
+          }
+        }
+        resolve(data);
       }
     });
-
-    console.log(`Number of students: ${NUMBER_OF_STUDENTS}`);
-    for (const value in field) {
-      if (value !== "field") {
-        console.log(
-          `Number of students in ${value}: ${field[value]}. List: ${names[
-            value
-          ].join(", ")}`
-        );
-      }
-    }
-  } catch (error) {
-    console.error("Cannot load the database");
-  }
+  });
 }
 
-countStudents("./database.csv");
+// countStudents("./database.csv")
+//   .then((data) => {
+//     console.log(`${data}`);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+module.exports = countStudents;
