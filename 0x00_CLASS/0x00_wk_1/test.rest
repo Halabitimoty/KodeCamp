@@ -1,0 +1,12 @@
+# POST http://localhost:4000/v1/auth/register
+# Content-Type : application/json
+
+# {
+#     "fullname":"Timothy",
+#     "email":"Timothy@ovi.com",
+#     "password":"we32se$"
+# }
+
+
+GET  http://localhost:4000/v1/tasks
+# /by-id/6506f0717e644161bf15db9e
