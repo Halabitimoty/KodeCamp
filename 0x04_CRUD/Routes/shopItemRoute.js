@@ -47,6 +47,11 @@ route.patch("/:id", async (req, res) => {
 
 route.delete("/:id", async (req, res) => {
   const item = await shopItemCollection.findById(req.params.id);
+  console.log(item);
+  if (item === null) {
+    res.status(401).send("Item not present");
+    return;
+  }
   await shopItemCollection.findByIdAndDelete(req.params.id);
   res.send("Item has been deleted sucessfully!");
 });
